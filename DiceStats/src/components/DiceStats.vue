@@ -1,13 +1,12 @@
 <template>
 <div>
-     <h1> Find out if your roll sucks </h1>
-
+    <h1> Find out if your roll sucks </h1>
+    <h2> {{ game.name }} </h2>
     <div class="container">
-       
         <!-- Header -->
         <div class="row" >
             <div class="col-md-5">
-                {{ player1.name }}
+                <h3>{{ player1.name }}</h3>
                 <div class="container-fluid">
                     <div classs="row">
                         <div class="col-md-6">
@@ -23,7 +22,7 @@
                 ROLLS
             </div>
             <div class="col-md-5">
-                {{ player2.name}}
+                <h3>{{ player2.name}}</h3>
                 <div class="container-fluid">
                     <div classs="row">
                         <div class="col-md-6">
@@ -37,13 +36,34 @@
             </div>
         </div> 
         <!-- Content -->
-        <div class="row" v-for="roll in diceRolls" :key="roll.rollType">
+        <div class="row rollRow" v-for="roll in diceRolls" :key="roll.rollType">
             <div class="col-md-5">
                <RollCount 
                 :playerRoll="roll.player1"/>
             </div>
             <div class="col-md-2">
-                {{ roll.rollType }}
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <SuccessRate
+                                :averageSuccess="roll.averageRate"
+                                :playerFail="roll.player1.fail"
+                                :playerPass="roll.player1.pass"
+                                />
+                        </div>
+                        <div class="col-md-4">
+                              {{ roll.rollType }}
+                        </div>
+                        <div class="col-md-4">
+                              <SuccessRate
+                                :averageSuccess="roll.averageRate"
+                                :playerFail="roll.player2.fail"
+                                :playerPass="roll.player2.pass"
+                                />
+                        </div>
+                    </div>
+                </div>
+              
             </div>
             <div class="col-md-5">
                  <RollCount 
@@ -51,7 +71,7 @@
             </div>
         </div>
         <!-- Functions -->
-        <div class="row">
+        <div class="row" style="padding-top:25px;">
             <div class="col-md-1">
                 <input type="button" value="Save to File" @click="saveFile" />
             </div>
@@ -62,6 +82,7 @@
 
 <script>
 import RollCount from "./RollCount.vue";
+import SuccessRate from "./SuccessRate.vue";
 export default {
     props: {
         game: Object,
@@ -70,7 +91,8 @@ export default {
         diceRolls: Array
     },
      components: {
-        RollCount
+        RollCount,
+        SuccessRate
     },
     data(){
        return{
@@ -78,47 +100,34 @@ export default {
        }
     },
     computed: {
-       
+      
     },
     watch: {
-       
+        
     },
     methods:{
         saveFile: function() {
-            const fs = require("fs");
+            var data = JSON.stringify(this.diceRolls);
+            var file = new Blob([data], {type: 'application/json'});
 
-            let cars = [
-            {
-                Name: "chevrolet chevelle malibu",
-                Miles_per_Gallon: 18,
-                Cylinders: 8,
-                Displacement: 307,
-                Horsepower: 130,
-                Weight_in_lbs: 3504,
-                Acceleration: 12,
-                Year: "1970-01-01",
-                Origin: "USA"
-            },
-            {
-                Name: "buick skylark 320",
-                Miles_per_Gallon: 15,
-                Cylinders: 8,
-                Displacement: 350,
-                Horsepower: 165,
-                Weight_in_lbs: 3693,
-                Acceleration: 11.5,
-                Year: "1970-01-01",
-                Origin: "USA"
-            }
-            ];
-            cars.forEach(car => {
-            car.price = 12000;
-            });
-
-            let data = JSON.stringify(cars);
-            fs.writeFileSync("data.json", data);
-            log(fs.file)
+             var a = document.createElement("a"),
+              url = URL.createObjectURL(file);
+            a.href = url;
+            a.download = this.game.name;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(function() {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);  
+            }, 0); 
         }
     }
 }
 </script>
+
+<style scoped>
+.rollRow{
+    padding-top:10px;
+    padding-bottom:10px;
+}
+</style>

@@ -30,63 +30,68 @@ export default {
     data() {
         return {
             game: {
-                name: "test game",
-                isStarted:true
+                name: "",
+                isStarted:false
             },
             player1: {
-                name: "Hugo"
+                name: ""
             },
             player2: {
-                name: "Vincent"
+                name: ""
             },
-            diceRolls: this.initDice(),
+            diceRolls: []
         };
     },
     methods: {
-        setGame(player1, player2) {
+        setGame(player1, player2,gameName) {
             this.player1.name = player1;
             this.player2.name = player2;
             this.diceRolls = this.initDice();
+            this.game.name = gameName;
             this.game.isStarted = true;
         },
         initDice(){
             return [
                 {
                     rollType: DiceRolls.TWO_PLUS,
+                    averageRate: 5/6,
                     player1:{
-                        pass: 1,
+                        pass: 0,
                         fail: 0
                     },
-                     player2:{
+                    player2:{
                         pass: 0,
                         fail: 0
                     }
                 },
                 {
                     rollType: DiceRolls.THREE_PLUS,
-                     player1:{
+                    averageRate: 4/6,
+                    player1:{
                         pass: 0,
-                        fail: 1
+                        fail: 0
                     },
-                     player2:{
+                    player2:{
                         pass: 0,
                         fail: 0
                     }
                 },
                 {
                     rollType: DiceRolls.FOUR_PLUS,
-                     player1:{
-                        pass: 3,
-                        fail: 4
+                    averageRate: 3/6,
+                    player1:{
+                        pass: 0,
+                        fail: 0
                     },
-                     player2:{
-                        pass: 5,
-                        fail: 5
+                    player2:{
+                        pass: 0,
+                        fail: 0
                     }
                 },
                 {
                     rollType: DiceRolls.FIVE_PLUS,
-                     player1:{
+                    averageRate: 2/6,
+                    player1:{
                         pass: 0,
                         fail: 0
                     },
@@ -97,11 +102,12 @@ export default {
                 },
                 {
                     rollType: DiceRolls.SIX_PLUS,
-                     player1:{
+                    averageRate: 1/6,
+                    player1:{
                         pass: 0,
                         fail: 0
                     },
-                     player2:{
+                    player2:{
                         pass: 0,
                         fail: 0
                     }
