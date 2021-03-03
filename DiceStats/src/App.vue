@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <GameSetup :setGame="setGame" v-if="!this.game.isStarted" />
+    <GameSetup :setGame="setGame" 
+        :continueGame="continueGame"
+        v-if="!this.game.isStarted" />
 
     <DiceStats 
         v-if="this.game.isStarted"
@@ -12,15 +14,10 @@
 </template>
 
 <script>
-const DiceRolls= {
-    TWO_PLUS:"2+",
-    THREE_PLUS:"3+",
-    FOUR_PLUS:"4+",
-    FIVE_PLUS:"5+",
-    SIX_PLUS:"6+"
-};
+
 import DiceStats from "./components/DiceStats.vue";
 import GameSetup from "./components/GameSetup.vue";
+import Constants from "./Constants.js";
 export default {
     name: "App",
     components: {
@@ -49,11 +46,25 @@ export default {
             this.diceRolls = this.initDice();
             this.game.name = gameName;
             this.game.isStarted = true;
+            this.$cookies.set(Constants.COOKIES.DICE_STATS, JSON.stringify(this.diceRolls));
+            this.$cookies.set(Constants.COOKIES.GAME_NAME, gameName);
+            this.$cookies.set(Constants.COOKIES.PLAYERS, [player1,player2])
+        },
+        continueGame(){
+            let dices = this.$cookies.get(Constants.COOKIES.DICE_STATS);
+            let playersCookies = this.$cookies.get(Constants.COOKIES.PLAYERS);
+            let gameName =  this.$cookies.get(Constants.COOKIES.GAME_NAME);
+            let players = playersCookies.split(',');
+            this.player1.name = players[0];
+            this.player2.name = players[1];
+            this.diceRolls = JSON.parse(dices);
+            this.game.name = gameName;
+            this.game.isStarted = true;
         },
         initDice(){
             return [
                 {
-                    rollType: DiceRolls.TWO_PLUS,
+                    rollType: Constants.DICE_ROLLS.TWO_PLUS,
                     averageRate: 5/6,
                     player1:{
                         pass: 0,
@@ -65,7 +76,7 @@ export default {
                     }
                 },
                 {
-                    rollType: DiceRolls.THREE_PLUS,
+                    rollType: Constants.DICE_ROLLS.THREE_PLUS,
                     averageRate: 4/6,
                     player1:{
                         pass: 0,
@@ -77,7 +88,7 @@ export default {
                     }
                 },
                 {
-                    rollType: DiceRolls.FOUR_PLUS,
+                    rollType: Constants.DICE_ROLLS.FOUR_PLUS,
                     averageRate: 3/6,
                     player1:{
                         pass: 0,
@@ -89,7 +100,7 @@ export default {
                     }
                 },
                 {
-                    rollType: DiceRolls.FIVE_PLUS,
+                    rollType: Constants.DICE_ROLLS.FIVE_PLUS,
                     averageRate: 2/6,
                     player1:{
                         pass: 0,
@@ -101,7 +112,7 @@ export default {
                     }
                 },
                 {
-                    rollType: DiceRolls.SIX_PLUS,
+                    rollType: Constants.DICE_ROLLS.SIX_PLUS,
                     averageRate: 1/6,
                     player1:{
                         pass: 0,
@@ -116,15 +127,7 @@ export default {
         }
     },
     mounted: function () {
-        fetch("https://opentdb.com/api.php?amount=10&type=multiple", {
-        method: "get",
-        })
-        .then((response) => {
-            return response.json();
-        })
-        .then((jsonData) => {
-            this.questions = jsonData.results;
-        });
+       
     },
 };
 </script>

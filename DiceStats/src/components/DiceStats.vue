@@ -38,8 +38,9 @@
         <!-- Content -->
         <div class="row rollRow" v-for="roll in diceRolls" :key="roll.rollType">
             <div class="col-md-5">
-               <RollCount 
-                :playerRoll="roll.player1"/>
+                <RollCount 
+                    :playerRoll="roll.player1"
+                    :updateCookie="updateCookie"/>
             </div>
             <div class="col-md-2">
                 <div class="container-fluid">
@@ -52,7 +53,7 @@
                                 />
                         </div>
                         <div class="col-md-4">
-                              {{ roll.rollType }}
+                                {{ roll.rollType }}
                         </div>
                         <div class="col-md-4">
                               <SuccessRate
@@ -66,14 +67,18 @@
               
             </div>
             <div class="col-md-5">
-                 <RollCount 
-                :playerRoll="roll.player2"/>
+                <RollCount 
+                    :playerRoll="roll.player2"
+                    :updateCookie="updateCookie"/>
             </div>
         </div>
         <!-- Functions -->
         <div class="row" style="padding-top:25px;">
             <div class="col-md-1">
                 <input type="button" value="Save to File" @click="saveFile" />
+            </div>
+             <div class="col-md-1">
+                <input type="button" value="Finish Game" @click="finishGame" />
             </div>
         </div>
     </div>
@@ -83,6 +88,8 @@
 <script>
 import RollCount from "./RollCount.vue";
 import SuccessRate from "./SuccessRate.vue";
+import Constants from "../Constants.js";
+
 export default {
     props: {
         game: Object,
@@ -103,15 +110,18 @@ export default {
       
     },
     watch: {
-        
+      
     },
     methods:{
+        updateCookie: function(){
+              this.$cookies.set(Constants.COOKIES.DICE_STATS, JSON.stringify(this.diceRolls));
+        },
         saveFile: function() {
-            var data = JSON.stringify(this.diceRolls);
-            var file = new Blob([data], {type: 'application/json'});
+            let data = JSON.stringify(this.diceRolls);
+            let file = new Blob([data], {type: 'application/json'});
 
-             var a = document.createElement("a"),
-              url = URL.createObjectURL(file);
+            let a = document.createElement("a"),
+            url = URL.createObjectURL(file);
             a.href = url;
             a.download = this.game.name;
             document.body.appendChild(a);
@@ -120,6 +130,13 @@ export default {
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(url);  
             }, 0); 
+        },
+        finishGame: function(){
+            this.saveFile();
+            this.$cookies.remove(Constants.COOKIES.DICE_STATS);
+            this.$cookies.remove(Constants.COOKIES.PLAYERS);
+            this.$cookies.remove(Constants.COOKIES.GAME_NAME);
+            this.game.isStarted = false;
         }
     }
 }

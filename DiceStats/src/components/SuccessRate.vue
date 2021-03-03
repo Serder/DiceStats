@@ -21,14 +21,14 @@ export default {
     },
     computed: {
         playerSuccess: function(){
-            var total = this.playerPass + this.playerFail;
+            let total = this.playerPass + this.playerFail;
             if(total == 0)
                 return 0;
             else
                 return Math.round(this.playerPass / total*100);
         },
         isUnderAverage: function(){
-            if(this.playerSuccess <= Math.round(this.averageSuccess*100))
+            if(this.playerSuccess < Math.round(this.averageSuccess*100))
                 return true;
             return false;
         }
