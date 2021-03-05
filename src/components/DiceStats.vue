@@ -2,9 +2,9 @@
 <div>
     <h1> Find out if your roll sucks </h1>
     <h2> {{ game.name }} </h2>
-    <div class="container">
+    <div class="container grid">
         <!-- Header -->
-        <div class="row" >
+        <div class="row header" >
             <div class="col-md-5">
                 <h3>{{ player1.name }}</h3>
                 <div class="container-fluid">
@@ -36,26 +36,27 @@
             </div>
         </div> 
         <!-- Content -->
-        <div class="row rollRow" v-for="roll in diceRolls" :key="roll.rollType">
+        <div class="row rollRow row-striped" v-for="roll in diceRolls" :key="roll.rollType">
             <div class="col-md-5">
                 <RollCount 
+                    :rollType="roll.rollType"
                     :playerRoll="roll.player1"
                     :updateCookie="updateCookie"/>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 middleBorders">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4 justify-content-center">
                             <SuccessRate
                                 :averageSuccess="roll.averageRate"
                                 :playerFail="roll.player1.fail"
                                 :playerPass="roll.player1.pass"
                                 />
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 justify-content-center">
                                 {{ roll.rollType }}
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 justify-content-center">
                               <SuccessRate
                                 :averageSuccess="roll.averageRate"
                                 :playerFail="roll.player2.fail"
@@ -68,6 +69,7 @@
             </div>
             <div class="col-md-5">
                 <RollCount 
+                    :rollType="roll.rollType"
                     :playerRoll="roll.player2"
                     :updateCookie="updateCookie"/>
             </div>
@@ -146,5 +148,24 @@ export default {
 .rollRow{
     padding-top:10px;
     padding-bottom:10px;
+}
+.col-md-4{
+    padding-right:0px;
+    padding-left:0px;
+}
+.col-md-5{
+    padding-right:0px;
+    padding-left:0px;
+}
+.row-striped:nth-of-type(odd){
+  background-color: #d3a6a6;
+}
+.header{
+    font-weight: bold;
+    background-color:#d1d1d1;
+}
+.middleBorders{
+    border-right:3px solid #000;
+    border-left:3px solid #000;
 }
 </style>

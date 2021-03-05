@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="col-md-2">
                     <input type="button" value="-" @click="pass = false"/>
                 </div>
@@ -9,12 +9,15 @@
                     <label>{{ pass }}</label>
                 </div>
                 <div class="col-md-7">
-                    <input type="button" value="+" @click="pass = true" class="buttonMargin"/>
+                    <input type="button" value="+" @click="pass = true" />
                     <input type="button" value="5" @click="Add(true,5)" class="buttonMargin"/>
                     <input type="button" value="10" @click="Add(true,10)" class="buttonMargin"/>
                 </div>
             </div>
-            <div class="col-md-6">
+             <div class="col-md-1 justify-content-center bold">
+                    {{ rollType }}
+             </div>
+            <div class="col-md-5">
                 <div class="col-md-2">
                     <input type="button" value="-" @click="fail = false"/>
                 </div>
@@ -35,6 +38,7 @@
 
 export default {
     props: {
+        rollType: String,
         playerRoll: Object,
         updateCookie:Function
     },
@@ -120,20 +124,35 @@ input[type=number]{
     
 } 
 .col-md-2{
+    padding-right:0px;
+    padding-left:0px;
+}
+.col-md-1{
     padding-right:5px;
     padding-left:5px;
+}
+.col-md-3{
+    padding-right:0px;
+    padding-left:0px;
 }
 .col-md-4{
     padding-right:5px;
     padding-left:5px;
 }
-.col-md-7{
+.col-md-5{
     padding-right:5px;
     padding-left:5px;
 }
+.col-md-7{
+    padding-right:0px;
+    padding-left:0px;
+}
+.col-md-6{
+    padding-right:0px;
+    padding-left:0px;
+}
 .buttonMargin{
-    margin-right:2px;
-    margin-left:2px;
+    margin-left:3px;
 }
 label{
     padding-right:10px;
@@ -142,4 +161,8 @@ label{
 input[type=button]{
     width:30px;
 }
+.bold{
+    font-weight: bold;
+}
+
 </style>
