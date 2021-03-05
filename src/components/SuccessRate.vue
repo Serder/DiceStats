@@ -1,8 +1,5 @@
 <template>
-    <div class="col-md-3">
         <label v-bind:class="{ 'red': isUnderAverage}">{{ playerSuccess }}%</label>
-    </div>
-
 </template>
 
 <script>
@@ -23,7 +20,7 @@ export default {
         playerSuccess: function(){
             let total = this.playerPass + this.playerFail;
             if(total == 0)
-                return 0;
+                return 100;
             else
                 return Math.round(this.playerPass / total*100);
         },
@@ -48,5 +45,9 @@ label{
 }
 .red{
     color: #c9123a;
+}
+.col-md-3{
+    padding-right:0px;
+    padding-left:0px;
 }
 </style>
