@@ -3,15 +3,15 @@
         <div class="row">
             <div class="col-md-5">
                 <div class="col-md-2">
-                    <input type="button" value="-" @click="pass = false"/>
+                    <input type="button" value="-" @click="pass = false" class="buttonRemove"/>
                 </div>
                 <div class="col-md-3 justify-content-center">
                     <label>{{ pass }}</label>
                 </div>
                 <div class="col-md-7">
-                    <input type="button" value="+" @click="pass = true" />
-                    <input type="button" value="5" @click="Add(true,5)" class="buttonMargin"/>
-                    <input type="button" value="10" @click="Add(true,10)" class="buttonMargin"/>
+                    <input type="button" value="+" @click="pass = true" class="buttonAdd"/>
+                    <input type="button" value="5" @click="Add(true,5)" class="buttonMargin buttonAdd"/>
+                    <input type="button" value="10" @click="Add(true,10)" class="buttonMargin buttonAdd"/>
                 </div>
             </div>
              <div class="col-md-1 justify-content-center bold">
@@ -19,15 +19,15 @@
              </div>
             <div class="col-md-5">
                 <div class="col-md-2">
-                    <input type="button" value="-" @click="fail = false"/>
+                    <input type="button" value="-" @click="fail = false" class="buttonRemove"/>
                 </div>
                 <div class="col-md-3 justify-content-center">
                     <label>{{ fail }}</label>
                 </div>
                 <div class="col-md-7">
-                    <input type="button" value="+" @click="fail = true"/>
-                    <input type="button" value="5" @click="Add(false,5)" class="buttonMargin"/>
-                    <input type="button" value="10" @click="Add(false,10)" class="buttonMargin"/>
+                    <input type="button" value="+" @click="fail = true" class="buttonAdd"/>
+                    <input type="button" value="5" @click="Add(false,5)" class="buttonMargin buttonAdd"/>
+                    <input type="button" value="10" @click="Add(false,10)" class="buttonMargin buttonAdd"/>
                 </div>
             </div>
         </div>
@@ -164,5 +164,6 @@ input[type=button]{
 .bold{
     font-weight: bold;
 }
-
+.buttonAdd {background-color: #b0deb1;}
+.buttonRemove {background-color: #ff8880;}
 </style>

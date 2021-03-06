@@ -158,11 +158,11 @@ export default {
     padding-left:0px;
 }
 .row-striped:nth-of-type(odd){
-  background-color: #d3a6a6;
+  background-color: #c4c4c4;
 }
 .header{
     font-weight: bold;
-    background-color:#d1d1d1;
+    background-color:#a8a8a8;
 }
 .middleBorders{
     border-right:3px solid #000;
