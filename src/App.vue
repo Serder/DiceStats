@@ -123,6 +123,18 @@ export default {
                         fail: 0
                     }
                 },
+                {
+                    rollType: Constants.DICE_ROLLS.FOUR_INVUL,
+                    averageRate: 3/6,
+                    player1:{
+                        pass: 0,
+                        fail: 0
+                    },
+                    player2:{
+                        pass: 0,
+                        fail: 0
+                    }
+                },
             ]
         }
     },

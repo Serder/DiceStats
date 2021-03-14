@@ -14,7 +14,7 @@
                     <input type="button" value="10" @click="Add(true,10)" class="buttonMargin buttonAdd"/>
                 </div>
             </div>
-             <div class="col-md-1 justify-content-center bold bigtext">
+             <div class="col-md-2 justify-content-center bold bigtext">
                     {{ rollType }}
              </div>
             <div class="col-md-5">

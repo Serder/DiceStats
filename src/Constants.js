@@ -10,7 +10,8 @@ const DICE_ROLLS= {
     THREE_PLUS:"3+",
     FOUR_PLUS:"4+",
     FIVE_PLUS:"5+",
-    SIX_PLUS:"6+"
+    SIX_PLUS:"6+",
+    FOUR_INVUL:"4++",
 };
 
 export default {
