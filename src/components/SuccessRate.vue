@@ -1,5 +1,8 @@
 <template>
-        <label v-bind:class="{ 'red': isUnderAverage}">{{ playerSuccess }}%</label>
+    <div>
+        <label v-bind:class="{ 'red': isUnderAverage}">{{ playerSuccess }}%</label> <br/>
+        <label v-bind:class="{ 'red': isUnderAverage, 'hidden': total==0}">{{ deltaRoll }}</label>
+    </div>
 </template>
 
 <script>
@@ -17,6 +20,14 @@ export default {
        }
     },
     computed: {
+        total: function(){
+            return this.playerPass + this.playerFail;
+        },
+        averageRoll:function(){
+            let total = this.playerPass + this.playerFail;
+            let averageSuccessRolls = Math.floor(total * this.averageSuccess);
+            return averageSuccessRolls;
+        },
         playerSuccess: function(){
             let total = this.playerPass + this.playerFail;
             if(total == 0)
@@ -28,6 +39,19 @@ export default {
             if(this.playerSuccess < Math.round(this.averageSuccess*100))
                 return true;
             return false;
+        },
+        deltaRoll: function(){
+            let total = this.playerPass + this.playerFail;
+            let averageSuccessRolls = Math.floor(total * this.averageSuccess);
+            let delta = this.playerPass - averageSuccessRolls;
+           
+            if(this.isUnderAverage){
+
+                return delta;
+            }else{
+                return "+" + delta;
+            }
+        
         }
     },
     watch: {
@@ -49,5 +73,8 @@ label{
 .col-md-3{
     padding-right:0px;
     padding-left:0px;
+}
+.hidden{
+    display:none;
 }
 </style>

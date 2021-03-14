@@ -14,14 +14,14 @@
                     <input type="button" value="10" @click="Add(true,10)" class="buttonMargin buttonAdd"/>
                 </div>
             </div>
-             <div class="col-md-1 justify-content-center bold">
+             <div class="col-md-1 justify-content-center bold bigtext">
                     {{ rollType }}
              </div>
             <div class="col-md-5">
                 <div class="col-md-2">
                     <input type="button" value="-" @click="fail = false" class="buttonRemove"/>
                 </div>
-                <div class="col-md-3 justify-content-center">
+                <div class="col-md-3 justify-content-center ">
                     <label>{{ fail }}</label>
                 </div>
                 <div class="col-md-7">
@@ -166,4 +166,7 @@ input[type=button]{
 }
 .buttonAdd {background-color: #b0deb1;}
 .buttonRemove {background-color: #ff8880;}
+.bigtext{
+    font-size:25px;
+}
 </style>
